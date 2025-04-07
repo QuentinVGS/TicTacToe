@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h> // Pour usleep
+#include <unistd.h>
 
 #define SIZE 3
 
@@ -10,6 +10,14 @@ int moves[SIZE * SIZE][2], move_count = 0;
 
 // Scores
 int x_wins = 0, o_wins = 0, draws = 0;
+
+typedef struct {
+    char board[SIZE][SIZE];
+    char winner;
+} GameHistory;
+
+GameHistory game_history[100];
+int game_history_count = 0;
 
 void init_board() {
     for (int i = 0; i < SIZE; i++)
@@ -87,6 +95,7 @@ void ai_move(char symbol) {
         x = rand() % SIZE;
         y = rand() % SIZE;
     } while (board[y][x] != ' ');
+
     board[y][x] = symbol;
     moves[move_count][0] = y;
     moves[move_count][1] = x;
@@ -95,16 +104,42 @@ void ai_move(char symbol) {
     usleep(500000);
 }
 
-void replay() {
-    int saved_moves = move_count;
+void save_game_to_history(char winner) {
+    GameHistory game;
+    for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
+            game.board[i][j] = board[i][j];
+
+    game.winner = winner;
+    game_history[game_history_count++] = game;
+}
+
+void replay_game(int game_index) {
     init_board();
-    for (int i = 0; i < saved_moves; i++) {
-        board[moves[i][0]][moves[i][1]] = (i % 2 == 0) ? 'X' : 'O';
-        draw_board(-1, -1);
-        usleep(500000);
+    GameHistory game = game_history[game_index];
+    move_count = 0;
+
+    // Rejouer les coups enregistrés dans l'historique
+    for (int i = 0; i < SIZE * SIZE; i++) {
+        if (game.board[i / SIZE][i % SIZE] != ' ') {
+            board[i / SIZE][i % SIZE] = game.board[i / SIZE][i % SIZE];
+            draw_board(-1, -1); // Dessiner le tableau après chaque coup
+            usleep(500000); // Pause pour voir l'animation
+        }
     }
-    mvprintw(14, 0, "Replayed Winner: %c", check_winner());
-    getch();
+
+    char winner = check_winner();
+    mvprintw(14, 0, "Replayed Winner: %c", winner);
+    getch(); // Attendre une touche avant de revenir au menu
+}
+
+// Fonction pour réinitialiser les scores, l'historique et l'état du jeu
+void reset_game() {
+    x_wins = 0;
+    o_wins = 0;
+    draws = 0;
+    game_history_count = 0;
+    init_board();
 }
 
 void game_loop(int mode) {
@@ -115,12 +150,15 @@ void game_loop(int mode) {
         else player_move(turn);
         turn = (turn == 'X') ? 'O' : 'X';
     }
-    draw_board(-1, -1);
+
     char winner = check_winner();
-    mvprintw(14, 0, "Winner: %c", winner);
     if (winner == 'X') x_wins++;
     else if (winner == 'O') o_wins++;
     else draws++;
+
+    save_game_to_history(winner); // Enregistrer la partie dans l'historique
+    draw_board(-1, -1);
+    mvprintw(14, 0, "Winner: %c", winner);
     getch();
 }
 
@@ -138,10 +176,10 @@ void menu() {
         clear();
         mvprintw(2, 0, " TIC-TAC-TOE MENU ");
         mvprintw(3, 0, "=================");
-        display_scores(); // Display the score table
+        display_scores();
 
-        char *options[] = {"Player vs Player", "Player vs AI", "AI vs AI", "Replay", "Quit"};
-        for (int i = 0; i < 5; i++) {
+        char *options[] = {"Player vs Player", "Player vs AI", "AI vs AI", "Replay", "Reset", "Quit"};
+        for (int i = 0; i < 6; i++) {
             if (i == choice) {
                 attron(A_REVERSE);
                 mvprintw(10 + i, 0, "%s", options[i]);
@@ -153,12 +191,25 @@ void menu() {
         refresh();
         ch = getch();
         if (ch == KEY_UP && choice > 0) choice--;
-        else if (ch == KEY_DOWN && choice < 4) choice++;
+        else if (ch == KEY_DOWN && choice < 5) choice++;
         else if (ch == '\n') {
-            if (choice == 4) break;
-            else if (choice == 3) {
-                replay();
-            } else game_loop(choice + 1);
+            if (choice == 5) break; // Quitter le jeu
+            else if (choice == 4) { // Option Reset
+                reset_game(); // Réinitialiser le jeu
+            } else if (choice == 3) { // Option Replay
+                clear();
+                mvprintw(5, 0, "Select game to replay:");
+                for (int i = 0; i < game_history_count; i++) {
+                    mvprintw(6 + i, 0, "Game %d: Winner %c", i + 1, game_history[i].winner);
+                }
+                refresh();
+                int game_choice = getch() - '1';  // Convertir la touche en indice de jeu
+                if (game_choice >= 0 && game_choice < game_history_count) {
+                    replay_game(game_choice);
+                }
+            } else { // Lancer une nouvelle partie
+                game_loop(choice + 1);
+            }
         }
     }
 }
@@ -173,4 +224,3 @@ int main() {
     endwin();
     return 0;
 }
-
