@@ -4,8 +4,11 @@
 
 1. Clonez le dépôt sur votre machine.
 2. Installez la bibliothèque `ncurses` si elle n'est pas encore installée.
-3. Compilez le code avec `gcc -o tictactoe tictactoe.c -lncurses`.
-4. Lancez le jeu avec `./tictactoe`.
+```bash
+sudo apt install libncurses5-dev libncursesw5-dev
+```
+4. Compilez le code avec `gcc -o tictactoe tictactoe.c -lncurses`.
+5. Lancez le jeu avec `./tictactoe`.
 
 ## Commandes du jeu
 
