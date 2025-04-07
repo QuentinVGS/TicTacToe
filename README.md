@@ -1,4 +1,4 @@
-# Tic-Tac-Toe avec IA (Programme en C)
+# Tic-Tac-Toe 
 
 C'est un jeu simple de Tic-Tac-Toe développé en C en utilisant la bibliothèque `ncurses`. Le jeu propose plusieurs modes de jeu, y compris Joueur vs Joueur, Joueur vs IA et IA vs IA. Il inclut aussi des fonctionnalités telles que le suivi des scores, la possibilité de rejouer les parties précédentes et de réinitialiser les scores.
 
