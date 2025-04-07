@@ -1,53 +1,20 @@
-# Jeu Tic-Tac-Toe en Terminal avec ncurses
+# Tic-Tac-Toe avec IA (Programme en C)
 
-## Description
+C'est un jeu simple de Tic-Tac-Toe développé en C en utilisant la bibliothèque `ncurses`. Le jeu propose plusieurs modes de jeu, y compris Joueur vs Joueur, Joueur vs IA et IA vs IA. Il inclut aussi des fonctionnalités telles que le suivi des scores, la possibilité de rejouer les parties précédentes et de réinitialiser les scores.
 
-Ce projet implémente le jeu **Tic-Tac-Toe** avec une interface terminal grâce à la bibliothèque `ncurses`. Le jeu permet de jouer en mode **Joueur vs Joueur**, **Joueur vs IA** et **IA vs IA**. Il inclut un système de scores, un historique des parties et la possibilité de rejouer des parties précédentes.
+## Fonctionnalités :
+- Mode Joueur vs Joueur
+- Mode Joueur vs IA
+- Mode IA vs IA
+- Suivi des scores
+- Historique des parties et option de replay
+- Option pour réinitialiser les scores
 
-## Fonctionnalités
+## Prérequis :
+- Compilateur C (GCC recommandé)
+- Bibliothèque ncurses
 
-- **Joueur vs Joueur (PvP)**
-- **Joueur vs IA (PvAI)**
-- **IA vs IA (AIvAI)**
-- **Suivi des scores** : Victoires, nuls, défaites.
-- **Historique des parties** : Sauvegarde et relecture des parties.
-- **Réinitialisation** : Réinitialise les scores et l'historique.
-
-## Installation et Compilation
-
-1. Clonez le projet :
+## Installation :
+1. Clone ce dépôt :
    ```bash
-   git clone https://github.com/votreutilisateur/tic-tac-toe.git
-   cd tic-tac-toe
-Installez ncurses (si nécessaire) :
-
-Debian/Ubuntu : sudo apt-get install libncurses5-dev
-
-macOS (Homebrew) : brew install ncurses
-
-Compilez avec make :
-
-bash
-Copier
-Modifier
-make
-Lancez le jeu :
-
-bash
-Copier
-Modifier
-./tic-tac-toe
-Utilisation
-Touches directionnelles : Déplacez le curseur sur le plateau.
-
-Espace : Placez votre symbole.
-
-Touche q : Quittez le jeu.
-
-Menu : Choisissez le mode de jeu, rejouez une partie ou quittez.
-
-Réinitialisation
-La réinitialisation efface les scores et l'historique des parties. Elle est disponible dans le menu principal après chaque partie.
-
-Auteurs
-[Votre Nom] : Développeur principal
+   git clone https://github.com/ton-repository/tic-tac-toe.git
