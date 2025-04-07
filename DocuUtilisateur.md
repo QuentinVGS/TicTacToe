@@ -1,9 +1,3 @@
-
-### 3. **Documentation Utilisateur**
-
-Cette documentation explique comment démarrer l'application et utiliser ses fonctionnalités. Voici un exemple :
-
-```markdown
 # Documentation Utilisateur - Tic-Tac-Toe
 
 ## Lancement du jeu
@@ -23,10 +17,8 @@ Cette documentation explique comment démarrer l'application et utiliser ses fon
 
 ## Modes de jeu
 
-- **Joueur vs Joueur** : Deux joueurs humains jouent alternativement.
-- **Joueur vs IA** : Un joueur humain joue contre l'IA.
-- **IA vs IA** : Deux IA s'affrontent.
+Le jeu propose plusieurs modes de jeu :
 
-## Suivi des scores
-
-Le jeu enregistre le nombre de victoires pour X, O et les matchs nuls. Les scores sont affichés en haut du menu principal.
+1. **Player vs Player** : Deux joueurs s'affrontent en prenant chacun leur tour.
+2. **Player vs AI** : Un joueur affronte l'IA qui joue de manière aléatoire.
+3. **AI vs AI** : Deux IA s'affrontent entre elles. Vous pouvez observer leur partie.
