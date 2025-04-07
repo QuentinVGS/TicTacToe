@@ -1,13 +1,4 @@
 # Documentation de Conception - Tic-Tac-Toe
-
-## Structure du projet
-
-Le projet est structuré de la manière suivante :
-
-- `tictactoe.c` : Fichier principal contenant l'implémentation du jeu.
-- `README.md` : Documentation du projet.
-- `Makefile` (si applicable) : Fichier de compilation pour faciliter la création du projet.
-
   
 ## Explication des principales fonctions
 
