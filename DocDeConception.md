@@ -13,7 +13,7 @@ Le projet est structuré de la manière suivante :
 
 1. **Affichage du tableau** : La fonction `draw_board()` gère l'affichage du tableau de jeu en utilisant la bibliothèque `ncurses`.
  
-2.**Gestion des mouvements des joueurs** : Les fonctions `player_move()` et `ai_move()` permettent de gérer les coups du joueur et de l'IA, respectivement.
+2. **Gestion des mouvements des joueurs** : Les fonctions `player_move()` et `ai_move()` permettent de gérer les coups du joueur et de l'IA, respectivement.
  
 3. **Vérification du gagnant** : La fonction `check_winner()` vérifie si un joueur a gagné ou si la partie se termine par un match nul.
  
